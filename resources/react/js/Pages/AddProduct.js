@@ -61,7 +61,6 @@ class AddProduct extends Component {
     render() {
         return (
             <div className="flex justify-center">
-                <h1>{process.env.API_URL}</h1>
                 <form onSubmit={this.submit}>
                     <h1>Добавить продукт</h1>
                     <br />
