@@ -20,6 +20,10 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->integer('price');
             $table->boolean('availability');
+            $table->string('photo');
+            $table->integer('categoryId');
+            $table->integer('brandId');
+            $table->string('brandName');
         });
     }
 

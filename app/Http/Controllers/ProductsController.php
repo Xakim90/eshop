@@ -21,9 +21,13 @@ class ProductsController extends Controller
 	{
 	   $this->validate($request, [
         'title' => 'required|unique:products|max:255',
-        'description' => 'required',
-        'price' => 'integer',
+        'description' => 'required|string',
+        'price' => 'required|integer',
         'availability' => 'boolean',
+		'photo' => 'string',
+		'categoryId' => 'required|integer',
+		'brandId' => 'required|integer',
+		'brandName' => 'required|string',
     ]);
 	    $product = Product::create($request->all());
 
