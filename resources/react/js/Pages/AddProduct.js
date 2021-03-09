@@ -55,6 +55,7 @@ class AddProduct extends Component {
             price: parseInt(this.state.price),
             title: this.state.title,
         };
+        debugger
         this.props.createProduct(formattedState);
     };
 

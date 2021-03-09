@@ -3,10 +3,12 @@
 use Illuminate\Support\Str;
 
 // $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-// $host = $url["host"] ?? null;
-// $username = $url["user"] ?? null;
-// $password = $url["pass"] ?? null;
-// $database = substr($url["path"], 1);
+
+if (env('MIX_API_URL') == 'local') {
+    $isLocal = true;
+}else {
+    $isLocal = false; 
+}
 
 $DATABASE_URL=parse_url('postgres://soleuqjvoywisx:8a481a7d4f2549ac8c5e95b876bec3a8acee3374d8a3f3043e9997222aa3557b@ec2-99-80-200-225.eu-west-1.compute.amazonaws.com:5432/dn8oaba7ho0of');
 
@@ -70,39 +72,21 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-
-        // for Heroku DB
         'pgsql' => [
             'driver' => 'pgsql',
             // 'url' => env('DATABASE_URL'),
-            'host' => $DATABASE_URL["host"],
-            'port' => $DATABASE_URL["port"],
-            'database' => ltrim($DATABASE_URL["path"], "/"),
-            'username' => $DATABASE_URL["user"],
-            'password' => $DATABASE_URL["pass"],
+            'host' => ($isLocal) ? env('DB_HOST', '127.0.0.1') : $DATABASE_URL["host"],
+            'port' => ($isLocal) ? env('DB_PORT', '5432') : $DATABASE_URL["port"],
+            'database' => ($isLocal) ? env('DB_DATABASE', 'forge') : ltrim($DATABASE_URL["path"], "/"),
+            'username' => ($isLocal) ? env('DB_USERNAME', 'forge') : $DATABASE_URL["user"],
+            'password' => ($isLocal) ? env('DB_PASSWORD', '') : $DATABASE_URL["pass"],
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
         ],
-
-        // for local DB
-        // 'pgsql' => [
-        //     'driver' => 'pgsql',
-        //     'url' => env('DATABASE_URL'),
-        //     'host' => env('DB_HOST', '127.0.0.1'),
-        //     'port' => env('DB_PORT', '5432'),
-        //     'database' => env('DB_DATABASE', 'forge'),
-        //     'username' => env('DB_USERNAME', 'forge'),
-        //     'password' => env('DB_PASSWORD', ''),
-        //     'charset' => 'utf8',
-        //     'prefix' => '',
-        //     'prefix_indexes' => true,
-        //     'schema' => 'public',
-        //     'sslmode' => 'prefer',
-        // ],
-
+        
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),

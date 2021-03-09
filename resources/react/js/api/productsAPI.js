@@ -24,6 +24,7 @@ const setProducts = product => ({
 
 export const productsAPI = {
     createProduct(product) {
+        debugger
         return async dispatch => {
             let response = await instance.post("products", product);
             if (response.data.product) {
