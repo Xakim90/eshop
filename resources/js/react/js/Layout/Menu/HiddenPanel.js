@@ -19,11 +19,12 @@ const useStyles = makeStyles({
 });
 
 
-export default function HiddenPanel() {
+export default function HiddenPanel(props) {
     const classes = useStyles();
     const [state, setState] = React.useState({
         left: false
     });
+    console.log(props);
     // const [open, setOpen] = React.useState(true);
 
     // console.log(open)
@@ -54,6 +55,15 @@ export default function HiddenPanel() {
         >
             <List>
                 {routes.map((item, index) => (
+                    <ListItem button key={index}>
+                        <Link key={index} to={item.url}>
+                            {item.title}
+                        </Link>
+                    </ListItem>
+                ))}
+            </List>
+            <List>
+                { props.catalogs.map((item, index) => (
                     <ListItem button key={index}>
                         <Link key={index} to={item.url}>
                             {item.title}

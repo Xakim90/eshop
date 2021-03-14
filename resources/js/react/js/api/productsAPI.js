@@ -24,25 +24,34 @@ const setProducts = product => ({
 
 export const productsAPI = {
     createProduct(product) {
-        debugger
         return async dispatch => {
             let response = await instance.post("products", product);
-            if (response.data.product) {
-                dispatch(setProducts(response.data));
-                window.history.go(-1);
+            if (response.data) {
+                  dispatch(this.getProducts());
+                  document.getElementById("requestSuccessInfo").innerText =
+                      "Продукт успешно создан!";
             }
+            if (response.message) {
+                     document.getElementById("requestErrorInfo").innerText =
+                         "Произошла ошибка!";
+                 }
         };
     },
 
     getProducts() {
         return async dispatch => {
-            let response = await instance.get("products");
-            if (response.status === 200) {
+            let response = await instance.get("products", {
+                onDownloadProgress: function(event) {
+                    let progress = Math.round((event.loaded * 100) / event.total);
+                }
+            });
+            if (response.data) {
                 dispatch(setProducts(response.data));
             }
             if (response.data.errors) {
                 console.log(data.errors);
             } else {
+
             }
         };
     },
@@ -77,3 +86,16 @@ export const productsAPI = {
         };
     }
 };
+
+// axios.get(
+//     "https://systran-systran-platform-for-language-processing-v1.p.rapidapi.com/translation/text/translate",
+//     {
+//         onDownloadProgress: progressEvent => {
+//             let percentCompleted = Math.round(
+//                 (progressEvent.loaded * 100) / progressEvent.total
+//             );
+//             console.log(progressEvent.lengthComputable);
+//             console.log(percentCompleted);
+//         }
+//     }
+// );

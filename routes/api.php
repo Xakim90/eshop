@@ -14,6 +14,16 @@ Route::put('product/{product}','ProductsController@update');
 
 Route::delete('product/{product}', 'ProductsController@delete');
 
+Route::get('catalogs', 'CatalogsController@index');
+
+Route::get('catalog/{catalog}', 'CatalogsController@show');
+
+Route::post('catalogs','CatalogsController@store');
+
+Route::put('catalog/{catalog}','CatalogsController@update');
+
+Route::delete('catalog/{catalog}', 'CatalogsController@delete');
+
 
 Route::get('categories', 'CategoriesController@index');
 
@@ -24,3 +34,14 @@ Route::post('categories','CategoriesController@store');
 Route::put('category/{category}','CategoriesController@update');
 
 Route::delete('category/{category}', 'CategoriesController@delete');
+
+
+Route::get('brands', 'BrandsController@index');
+
+Route::get('brand/{brand}', 'BrandsController@show');
+
+Route::post('brands','BrandsController@store');
+
+Route::put('brand/{brand}','BrandsController@update');
+
+Route::delete('brand/{brand}', 'BrandsController@delete');

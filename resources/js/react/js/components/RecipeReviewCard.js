@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
         maxWidth: 345
     },
     media: {
-        height: 40,
+        height: 160,
         paddingTop: "56.25%" // 16:9
     },
     expand: {
@@ -51,21 +51,21 @@ export default function RecipeReviewCard({ data }) {
         <Card
             className={
                 classes.root +
-                " h-full hover:bg-yellow-300 hover:border-4 cursor-pointer focus:border-yellow-800"
+                " h-full hover:bg-yellow-300 p-2 hover:border-4 cursor-pointer focus:border-yellow-800"
             }
         >
             <CardMedia
-                className={classes.media + " h-2/5"}
+                className={classes.media + " h-80"}
                 image={data.photo}
                 title={data.title}
             />
-            <CardHeader subheader={data.title} />
-            <CardContent>
+            <CardHeader className="p-1" subheader={data.title} />
+            <CardContent className="p-1">
                 <Typography variant="body2" color="textSecondary" component="p">
                     {data.price}
                 </Typography>
             </CardContent>
-            <CardActions disableSpacing>
+            <CardActions disableSpacing className="p-2">
                 <IconButton aria-label="add to favorites">
                     <FavoriteIcon />
                 </IconButton>

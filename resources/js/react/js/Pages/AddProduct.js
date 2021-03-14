@@ -55,8 +55,8 @@ class AddProduct extends Component {
             price: parseInt(this.state.price),
             title: this.state.title,
         };
-        debugger
         this.props.createProduct(formattedState);
+        this.clearState();
     };
 
     render() {
@@ -145,6 +145,13 @@ class AddProduct extends Component {
                         </option>
                         <option value={2}>Samsung</option>
                         <option value={3}>Xiaomi</option>
+                        <option value={4}>Huawei</option>
+                        <option value={5}>Vivo Realme</option>
+                        <option value={6}>Motorola Lenovo</option>
+                        <option value={7}>Sony</option>
+                        <option value={8}>Google</option>
+                        <option value={9}>Nokia</option>
+                        <option value={10}>Meizu</option>
                     </select>
                     <br />
                     <br />
@@ -162,7 +169,11 @@ class AddProduct extends Component {
                     </select>
                     <br />
                     <div className="grid grid-cols-1">
-                        <p id="signupErrorDiv"></p>
+                        <h3
+                            className="text-blue-800"
+                            id="requestSuccessInfo"
+                        ></h3>
+                        <h3 className="text-red-800" id="requestErrorInfo"></h3>
                     </div>
                     <input
                         type="submit"

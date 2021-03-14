@@ -21,7 +21,7 @@ class CategoriesController extends Controller
 	{
 	   $this->validate($request, [
         'title' => 'required|unique:categories|max:255',
-        'catalog' => 'required',
+        'catalog_id' => 'required|unique:categories|integer',
     ]);
 	    $category = Category::create($request->all());
 

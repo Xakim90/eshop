@@ -1,6 +1,6 @@
 const initialState = {
     products: [],
-    // loaded: false
+    loaded: false
 };
 
 export default function productsReducer(state = initialState, action) {
@@ -9,7 +9,7 @@ export default function productsReducer(state = initialState, action) {
             return {
                 ...state,
                 products: action.payload,
-                // loaded: true
+                loaded: true
             };
         default:
             return state;

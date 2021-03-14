@@ -12,7 +12,7 @@ const HeaderMain = (props) => {
          md:place-content-center sm:h-22 md:h-14 md:min-h-full"
         >
             <div className="flex justify-start">
-                <HiddenPanel />
+                <HiddenPanel catalogs={props.catalogs} />
             </div>
             <div
                 className="grid md:place-content-center justify-end ml-20 

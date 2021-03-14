@@ -8,8 +8,10 @@
                     "version": 3,
                     "proposals": false
                 },
+                "modules": false,
                 "targets": {
-                    "ie": "11"
+                    "browsers": "> 2%",
+                    "uglify": true
                 }
             }
         ]
