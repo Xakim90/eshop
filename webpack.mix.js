@@ -26,8 +26,3 @@ mix.webpackConfig({
 mix.browserSync({
     proxy: "http://localhost:8000"
 });
-// mix.js("resources/assets/js/app.js", "public/js").postCss(
-//     "resources/assets/css/app.css",
-//     "public/css",
-//     [require("tailwindcss")]
-// );
