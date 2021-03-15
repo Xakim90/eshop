@@ -20,7 +20,7 @@ class CatalogsController extends Controller
 	public function store(Request $request)
 	{
 	   $this->validate($request, [
-        'title' => 'required|unique:catalogs|max:255',
+        'title' => 'required|string',
         'url' => 'required|unique:catalogs|max:255',
     ]);
 	    $catalog = Catalog::create($request->all());

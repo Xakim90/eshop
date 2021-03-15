@@ -32,7 +32,7 @@ class AddCatalog extends Component {
         return (
             <div className="flex justify-center">
                 <form onSubmit={this.submit}>
-                    <h1>Добавить категорию</h1>
+                    <h1>Добавить каталог для меню</h1>
                     <br />
                     <TextField
                         id="outlined-email-input-01"
@@ -59,11 +59,11 @@ class AddCatalog extends Component {
                     <br />
                     <br />
                     <div className="grid grid-cols-1">
-                        <h3
+                        <h5
                             className="text-blue-800"
                             id="requestSuccessInfo"
-                        ></h3>
-                        <h3 className="text-red-800" id="requestErrorInfo"></h3>
+                        ></h5>
+                        <h5 className="text-red-800" id="requestErrorInfo"></h5>
                     </div>
                     <input
                         type="submit"

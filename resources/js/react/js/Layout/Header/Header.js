@@ -6,7 +6,6 @@ const Header = props => {
         <>
             <HeaderMain
                 catalogs={props.catalogs}
-                isAuthorized={props.isAuthorized}
                 setAuthorized={props.setAuthorized}
             />
         </>

@@ -1,13 +1,11 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 
 class AddCategory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            category_id: "",
+            catalog_id: "",
             title: ""
         };
     }
@@ -26,18 +24,20 @@ class AddCategory extends Component {
 
     clearState() {
         this.setState({
-            category_id: "",
+            catalog_id: "",
             title: ""
         });
     }
 
     submit = event => {
         event.preventDefault();
+        let catalogId = parseInt(this.state.catalog_id);
+        catalogId++ 
         let formattedState = {
-            category_id: parseInt(this.state.category_id),
+            catalog_id: catalogId,
             title: this.state.title
         };
-        this.props.createProduct(formattedState);
+        this.props.createCategory(formattedState);
     };
 
     render() {
@@ -48,24 +48,16 @@ class AddCategory extends Component {
                     <br />
 
                     <select
-                        value={this.state.category_id}
+                        value={this.state.catalog_id}
                         className="border py-2 px-2 cursor-pointer"
-                        name="category_id"
+                        name="catalog_id"
                         onChange={this.handleChange}
                     >
                         <option>Выберите каталог : </option>
-                        <option className="border py-2 px-3" value="1">
-                            Смартфоны
-                        </option>
-                        <option value="2">Ноутбуки</option>
-                        <option value="3">
-                            Телевизоры, фото-видео и аудио
-                        </option>
-                        <option value="4">Бытовая техника</option>
-                        <option value="5">Всё для офиса, дома и сада</option>
-                        <option value="6">Спорт товары</option>
+                        {this.props.catalogs.map((catalog, index) => (
+                            <option key={index} value={index}>{catalog.title}</option>
+                        ))}
                     </select>
-
                     <br />
                     <br />
                     <TextField
@@ -81,11 +73,11 @@ class AddCategory extends Component {
                     <br />
                     <br />
                     <div className="grid grid-cols-1">
-                        <h3
+                        <h5
                             className="text-blue-800"
                             id="requestSuccessInfo"
-                        ></h3>
-                        <h3 className="text-red-800" id="requestErrorInfo"></h3>
+                        ></h5>
+                        <h5 className="text-red-800" id="requestErrorInfo"></h5>
                     </div>
                     <input
                         type="submit"

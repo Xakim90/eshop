@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component } from "react";
 import { BrowserRouter, withRouter } from "react-router-dom";
 import { connect, Provider } from "react-redux";
 import { compose } from "redux";
@@ -7,52 +7,39 @@ import Header from "./Layout/Header/Header";
 import Footer from "./Layout/Footer/Footer";
 import { productsAPI } from "./api/productsAPI";
 import { catalogsAPI } from "./api/catalogsAPI";
+import { categoriesAPI } from "./api/categoriesAPI";
+import { brandsAPI } from "./api/brandsAPI";
 import { Route, Switch } from "react-router";
 import Appliances from "./Pages/Appliances";
 import Home from "./Pages/Home";
 import Register from "./Pages/Register";
 import Notebooks from "./Pages/Notebooks";
 import Phones from "./Pages/Phones";
+import Brands from "./Pages/Brands";
 import Sports from "./Pages/Sports";
 import Tv from "./Pages/Tv";
 import AddProduct from "./Pages/AddProduct";
 import AddCategory from "./Pages/AddCategory";
 import AddCatalog from "./Pages/AddCatalog";
+import AddBrand from "./Pages/AddBrand";
 import Test from "./Pages/Test/Test";
 
 class Main extends Component {
-    constructor(props) {
-    super(props);
-        this.state = {
-            allProducts: this.props.products
-         };
-     }
-     componentDidMount() {
-         this.props.getProducts();
-         this.props.getCatalogs();
-     }
-
-    //  componentDidUpdate() {
-    //      console.log("componentDidUpdate");
-    //      this.props.getProducts();
-    //      this.props.getCatalogs();
-    //  }
-
+    componentDidMount() {
+        this.props.getProducts();
+        this.props.getCatalogs();
+        this.props.getCategories();
+        this.props.getBrands();
+    }
     setAuthorized = () => {
         setisAuthorized(true);
     };
 
-    // useEffect(() => {
-    //     props.getProducts();
-    //     props.getCatalogs();
-    // }, []);
-    
-    render () {
+    render() {
         return (
             <div className="container mx-auto">
                 <div className="sticky top-0 z-50">
                     <Header
-                        isAuthorized={this.state.isAuthorized}
                         setAuthorized={this.setAuthorized}
                         catalogs={this.props.catalogs}
                     />
@@ -66,7 +53,10 @@ class Main extends Component {
                             />
                         </Route>
                         <Route exact path="/phones">
-                            <Phones />
+                            <Phones categories={this.props.categories}/>
+                        </Route>
+                        <Route exact path="/brands">
+                            <Brands brands={this.props.brands}/>
                         </Route>
                         <Route exact path="/notebooks">
                             <Notebooks />
@@ -84,13 +74,26 @@ class Main extends Component {
                             <Register />
                         </Route>
                         <Route path="/addproduct">
-                            <AddProduct createProduct={this.props.createProduct} />
+                            <AddProduct
+                                createProduct={this.props.createProduct}
+                            />
                         </Route>
                         <Route path="/addcategory">
-                            <AddCategory />
+                            <AddCategory
+                                createCategory={this.props.createCategory}
+                                catalogs={this.props.catalogs}
+                            />
                         </Route>
                         <Route path="/addcatalog">
-                            <AddCatalog createCatalog={this.props.createCatalog} />
+                            <AddCatalog
+                                createCatalog={this.props.createCatalog}
+                            />
+                        </Route>
+                        <Route path="/addbrand">
+                            <AddBrand
+                                createBrand={this.props.createBrand}
+                                categories={this.props.categories}
+                            />
                         </Route>
                         <Route path="/test">
                             <Test />
@@ -103,13 +106,17 @@ class Main extends Component {
             </div>
         );
     }
-};
+}
 
 const mapStateToProps = state => ({
     products: state.productsReducer.products,
     productsIsLoaded: state.productsReducer.loaded,
     catalogs: state.catalogsReducer.catalogs,
     catalogsIsLoaded: state.catalogsReducer.loaded,
+    categories: state.categoriesReducer.categories,
+    categoriesIsLoaded: state.categoriesReducer.loaded,
+    brands: state.brandsReducer.brands,
+    brandsIsLoaded: state.categoriesReducer.loaded,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -117,6 +124,10 @@ const mapDispatchToProps = dispatch => ({
     createProduct: data => dispatch(productsAPI.createProduct(data)),
     getCatalogs: () => dispatch(catalogsAPI.getCatalogs()),
     createCatalog: catalog => dispatch(catalogsAPI.createCatalog(catalog)),
+    getCategories: () => dispatch(categoriesAPI.getCategories()),
+    createCategory: category => dispatch(categoriesAPI.createCategory(category)),
+    getBrands: () => dispatch(brandsAPI.getBrands()),
+    createBrand: brand => dispatch(brandsAPI.createBrand(brand)),
 });
 
 const MainContainer = compose(

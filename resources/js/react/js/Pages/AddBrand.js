@@ -27,11 +27,13 @@ class AddBrand extends Component {
 
     submit = event => {
         event.preventDefault();
+        let categoryId = parseInt(this.state.category_id);
+        categoryId++
         let formattedState =  {
-            category_id: parseInt(this.state.category_id),
+            category_id: categoryId,
             name: this.state.name
         };
-        this.props.createProduct(formattedState);
+        this.props.createBrand(formattedState);
     };
 
     render() {
@@ -59,17 +61,10 @@ class AddBrand extends Component {
                         name="category_id"
                         onChange={this.handleChange}
                     >
-                        <option>Выберите каталог : </option>
-                        <option className="border py-2 px-3" value="1">
-                            Смартфоны
-                        </option>
-                        <option value="2">Ноутбуки</option>
-                        <option value="3">
-                            Телевизоры, фото-видео и аудио
-                        </option>
-                        <option value="4">Бытовая техника</option>
-                        <option value="5">Всё для офиса, дома и сада</option>
-                        <option value="6">Спорт товары</option>
+                        <option>Выберите категорию : </option>
+                        {this.props.categories.map((category, index) => (
+                            <option key={index} value={index}>{category.title}</option>
+                        ))}
                     </select>
                     <br />
                     <br />
@@ -78,10 +73,7 @@ class AddBrand extends Component {
                             className="text-blue-800"
                             id="requestSuccessInfo"
                         ></h3>
-                        <h3
-                            className="text-red-800"
-                            id="requestErrorInfo"
-                        ></h3>
+                        <h3 className="text-red-800" id="requestErrorInfo"></h3>
                     </div>
                     <input
                         type="submit"

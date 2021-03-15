@@ -21,17 +21,6 @@ const HeaderMain = (props) => {
                 <SearchPanel />
             </div>
             <div className="text-white flex justify-around md:mt-2">
-                <button className="text-white" onClick={props.setAuthorized}>
-                    Click
-                </button>
-                {props.isAuthorized ? (
-                    <span className="mr-2">
-                        <AccountCircleIcon color="inherit" className="mr-2" />
-                        Account
-                    </span>
-                ) : (
-                    <span>Login</span>
-                )}
                 <span className="mr-2">
                     <FavoriteBorderIcon className="mr-2" />
                     My Items

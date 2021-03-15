@@ -24,27 +24,32 @@ const setCatalogs = catalog => ({
 export const catalogsAPI = {
     createCatalog(catalog) {
         return async dispatch => {
-            let response = await instance.post("catalogs", catalog);
-            if (response.data) {
-                dispatch(this.getCatalogs());
-                document.getElementById("requestSuccessInfo").innerText =
-                    "Каталог успешно создан!";
-            }else{
-                document.getElementById("requestErrorInfo").innerText =
-                    "Произошла ошибка!";
+            try {
+                let res = await instance.post("catalogs", catalog);
+                debugger
+                if (res.data) {
+                    dispatch(this.getCatalogs());
+                    document.getElementById("requestSuccessInfo").innerText =
+                        "Каталог успешно создан!";
+                }
+            } catch (e) {
+                debugger
+                let errorText;
+                if (e.response !== undefined && e.response.status === 422) {
+                    errorText = "все поля обязательны для заполнения";
+                } else {
+                    errorText = `произошла ошибка + ${e.message}`;
+                }
+                document.getElementById(
+                    "requestErrorInfo"
+                ).innerText = `${errorText}`;
             }
         };
     },
 
     getCatalogs() {
         return async dispatch => {
-            let response = await instance.get("catalogs", {
-                onDownloadProgress: function(event) {
-                    let progress = Math.round(
-                        (event.loaded * 100) / event.total
-                    );
-                }
-            });
+            let response = await instance.get("catalogs");
             if (response.data) {
                 dispatch(setCatalogs(response.data));
             }

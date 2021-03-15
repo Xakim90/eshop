@@ -169,11 +169,11 @@ class AddProduct extends Component {
                     </select>
                     <br />
                     <div className="grid grid-cols-1">
-                        <h3
-                            className="text-blue-800"
+                        <h5
+                            className="text-blue-600"
                             id="requestSuccessInfo"
-                        ></h3>
-                        <h3 className="text-red-800" id="requestErrorInfo"></h3>
+                        ></h5>
+                        <h5 className="text-red-600" id="requestErrorInfo"></h5>
                     </div>
                     <input
                         type="submit"

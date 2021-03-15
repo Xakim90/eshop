@@ -24,23 +24,30 @@ const setCategories = category => ({
 export const categoriesAPI = {
     createCategory(category) {
         return async dispatch => {
-            let response = await instance.post("categories", category);
-            if (response.data) {
-                dispatch(setCategories(response.data));
-                window.history.go(-1);
+            try {
+                let res = await instance.post("categories", category);
+                if (res.data) {
+                    dispatch(this.getCategories());
+                    document.getElementById("requestSuccessInfo").innerText =
+                        "Категория успешно создана!";
+                }
+            } catch (e) {
+                let errorText;
+                if (e.response.status === 422) {
+                    errorText = "все поля обязательны для заполнения";
+                } else {
+                    errorText = "произошла ошибка";
+                }
+                document.getElementById(
+                    "requestErrorInfo"
+                ).innerText = `${errorText}`;
             }
         };
     },
 
     getCategories() {
         return async dispatch => {
-            let response = await instance.get("categories", {
-                onDownloadProgress: function(event) {
-                    let progress = Math.round(
-                        (event.loaded * 100) / event.total
-                    );
-                }
-            });
+            let response = await instance.get("categories");
             if (response.data) {
                 dispatch(setCategories(response.data));
             }

@@ -22,12 +22,25 @@ const setBrands = brand => ({
 });
 
 export const brandsAPI = {
-    createbrand(brand) {
+    createBrand(brand) {
         return async dispatch => {
-            let response = await instance.post("brands", brand);
-            if (response.data) {
-                dispatch(setbrands(response.data));
-                window.history.go(-1);
+            try {
+                let res = await instance.post("brands", brand);
+                if (res.data) {
+                    dispatch(this.getBrands());
+                    document.getElementById("requestSuccessInfo").innerText =
+                        "Бренд успешно создан!";
+                }
+            } catch (e) {
+                let errorText;
+                if (e.response.status === 422) {
+                    errorText = "все поля обязательны для заполнения";
+                } else {
+                    errorText = "произошла ошибка";
+                }
+                document.getElementById(
+                    "requestErrorInfo"
+                ).innerText = `${errorText}`;
             }
         };
     },

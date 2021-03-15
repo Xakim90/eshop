@@ -18,21 +18,11 @@ const useStyles = makeStyles({
     }
 });
 
-
 export default function HiddenPanel(props) {
     const classes = useStyles();
     const [state, setState] = React.useState({
         left: false
     });
-    console.log(props);
-    // const [open, setOpen] = React.useState(true);
-
-    // console.log(open)
-
-    // const handleClick = () => {
-    //     setOpen(!open);
-    // };
-
     const toggleDrawer = (anchor, open) => event => {
         if (
             event.type === "keydown" &&
