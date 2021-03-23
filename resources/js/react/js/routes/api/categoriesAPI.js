@@ -88,16 +88,3 @@ export const categoriesAPI = {
         };
     }
 };
-
-// axios.get(
-//     "https://systran-systran-platform-for-language-processing-v1.p.rapidapi.com/translation/text/translate",
-//     {
-//         onDownloadProgress: progressEvent => {
-//             let percentCompleted = Math.round(
-//                 (progressEvent.loaded * 100) / progressEvent.total
-//             );
-//             console.log(progressEvent.lengthComputable);
-//             console.log(percentCompleted);
-//         }
-//     }
-// );

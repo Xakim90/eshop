@@ -7,7 +7,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
-import { routes } from '../../routes/routes'
+import { routes } from "../../routes/routes";
 
 const useStyles = makeStyles({
     list: {
@@ -52,8 +52,8 @@ export default function HiddenPanel(props) {
                     </ListItem>
                 ))}
             </List>
-            <List>
-                { props.catalogs.map((item, index) => (
+            <List disablePadding={true}>
+                {props.catalogs.map((item, index) => (
                     <ListItem button key={index}>
                         <Link key={index} to={item.url}>
                             {item.title}

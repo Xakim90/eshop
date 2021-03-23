@@ -1,6 +1,7 @@
 import React from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import RecipeReviewCard from './RecipeReviewCard';
+import Card from './Card';
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 /**
@@ -11,9 +12,14 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 const CarouselAutoplay = (props) => {
     return (
         <div className="wrapper">
-            { !props.productsIsLoaded ? (
-                <div className="flex justify-center">
-                    <CircularProgress />
+            {!props.productsIsLoaded ? (
+                <div className="grid  grid-rows-1 grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6">
+                    <Card />
+                    <Card />
+                    <Card />
+                    <Card />
+                    <Card />
+                    <Card />
                 </div>
             ) : (
                 <Splide
@@ -30,6 +36,7 @@ const CarouselAutoplay = (props) => {
                         // height: "20vh",
                         // perPage: 6,
                         lazyLoad: "nearby",
+                        interval: 2000,
                         breakpoints: {
                             640: {
                                 perPage: 2
@@ -44,7 +51,7 @@ const CarouselAutoplay = (props) => {
                                 perPage: 6
                             },
                             2560: {
-                                perPage: 8
+                                perPage: 7
                             }
                         }
                     }}
@@ -54,7 +61,10 @@ const CarouselAutoplay = (props) => {
                 >
                     {props.products.map((item, index) => (
                         <SplideSlide key={index}>
-                            <RecipeReviewCard data={item} />
+                            <RecipeReviewCard
+                                productsIsLoaded={props.productsIsLoaded}
+                                data={item}
+                            />
                         </SplideSlide>
                     ))}
                 </Splide>

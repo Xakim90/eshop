@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Phones = props => {
+const Phones = (props) => {
+    const [state, setState] = useState({
+        
+    });
+    // const open = () => {
+
+    // }
     return (
-        <div className="w-full h-96">
-            <h1>Welcome to Phone Page</h1>
-            {props.categories.map((category, index) => (
-                <h3 className="text-red-500" key={index}>
-                    {category.title}
-                </h3>
-            ))}
+        <div className="mt-5 w-full h-full flex justify-around">
+            {props.categories.map(category =>
+                category.catalog_id === 1 ? (
+                    <div className="text-gray-500" key={category.id}>
+                        <h3>{category.title}</h3>
+                        {props.brands.map(brand =>
+                            brand.category_id === category.id ? (
+                                <a className="block" href={brand.name} key={brand.id}>{brand.name}</a>
+                            ) : null
+                        )}
+                    </div>
+                ) : null
+            )}
         </div>
     );
 };
