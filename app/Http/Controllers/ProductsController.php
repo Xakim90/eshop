@@ -28,6 +28,7 @@ class ProductsController extends Controller
 		'categoryId' => 'required|integer',
 		'brandId' => 'required|integer',
 		'brandName' => 'required|string',
+		'selected' => 'boolean'
     ]);
 	    $product = Product::create($request->all());
 

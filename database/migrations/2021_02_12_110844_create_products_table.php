@@ -24,6 +24,7 @@ class CreateProductsTable extends Migration
             $table->integer('categoryId');
             $table->integer('brandId');
             $table->string('brandName');
+            $table->boolean('selected')->default(false);
         });
     }
 

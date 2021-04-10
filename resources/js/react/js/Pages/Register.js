@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Field, reduxForm } from "redux-form";
 import TextField from "@material-ui/core/TextField";
 import asyncValidate from "../Helpers/asyncValidate";
 import Button from "@material-ui/core/Button";
+import Axios from 'axios';
 import { makeStyles } from "@material-ui/core/styles";
 
 const validate = values => {
     const errors = {};
-    const requiredFields = ["firstName", "lastName", "email", "password"];
+    const requiredFields = ["name", "email", "password"];
     requiredFields.forEach(field => {
         if (!values[field]) {
             errors[field] = "Ushbu maydon to'ldirilishi shart";
@@ -41,32 +42,40 @@ const renderTextField = ({
 );
 
 const MaterialUiForm = props => {
-    const { handleSubmit, pristine, reset, submitting, classes } = props;
+    const { pristine, reset, submitting, classes } = props;
+    const [user, setUser] = useState({
+        name: "",
+        email: "",
+        password: ""
+    });
+    const change = (e) => {
+        setUser( {
+            ...user,
+            [e.target.name]: e.target.value
+        });
+    }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+                let res = await Axios.post("api/register", user);
+                    if (res.data) {
+                        console.log(res.data)
+                    }
+                } catch (e) {
+                    console.log(e)
+                }
+    }
+
     return (
         <div className="flex justify-center mt-3">
             <form className="w-1/2" onSubmit={handleSubmit}>
                 <div>
                     <Field
-                        name="firstName"
+                        name="name"
                         component={renderTextField}
                         label="Ism"
                         fullWidth={true}
-                    />
-                </div>
-                <div className="mt-3">
-                    <Field
-                        name="lastName"
-                        component={renderTextField}
-                        label="Familiya"
-                        fullWidth={true}
-                    />
-                </div>
-                <div className="mt-3">
-                    <Field
-                        name="password"
-                        component={renderTextField}
-                        label="Parol"
-                        fullWidth={true}
+                        onChange={change}
                     />
                 </div>
                 <div className="mt-3">
@@ -75,8 +84,19 @@ const MaterialUiForm = props => {
                         component={renderTextField}
                         label="Email"
                         fullWidth={true}
+                        onChange={change}
                     />
                 </div>
+                <div className="mt-3">
+                    <Field
+                        name="password"
+                        component={renderTextField}
+                        label="Parol"
+                        fullWidth={true}
+                        onChange={change}
+                    />
+                </div>
+
                 {console.log("PRISTINE: " + pristine)}
 
                 <div className="mt-3 flex">

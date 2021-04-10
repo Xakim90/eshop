@@ -13,6 +13,7 @@ import AddCategory from "../../Pages/AddCategory";
 import AddCatalog from "../../Pages/AddCatalog";
 import AddBrand from "../../Pages/AddBrand";
 import Test from "../../Pages/Test/Test";
+import Add from '../../Pages/Add';
 
 const ContentMain = (props) => {
     return (
@@ -36,10 +37,20 @@ const ContentMain = (props) => {
                     <Brands brands={props.data.brands} />
                 </Route>
                 <Route exact path="/notebooks">
-                    <Notebooks />
+                    <Notebooks
+                        brands={props.data.brands}
+                        products={props.data.products}
+                        categories={props.data.categories}
+                        productsIsLoaded={props.data.productsIsLoaded}
+                    />
                 </Route>
                 <Route exact path="/tv">
-                    <Tv />
+                    <Tv
+                        brands={props.data.brands}
+                        products={props.data.products}
+                        categories={props.data.categories}
+                        productsIsLoaded={props.data.productsIsLoaded}
+                    />
                 </Route>
                 <Route exact path="/appliances">
                     <Appliances />
@@ -74,6 +85,17 @@ const ContentMain = (props) => {
                 </Route>
                 <Route path="/test">
                     <Test />
+                </Route>
+                <Route path="/add">
+                    <Add
+                        createCategory={props.data.createCategory}
+                        createCatalog={props.data.createCatalog}
+                        createBrand={props.data.createBrand}
+                        createProduct={props.data.createProduct}
+                        catalogs={props.data.catalogs}
+                        categories={props.data.categories}
+                        brands={props.data.brands}
+                    />
                 </Route>
             </Switch>
         </div>
