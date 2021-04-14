@@ -51,7 +51,7 @@ const CarouselAutoplay = (props) => {
                                 perPage: 6
                             },
                             2560: {
-                                perPage: 6
+                                perPage: 8
                             }
                         }
                     }}
