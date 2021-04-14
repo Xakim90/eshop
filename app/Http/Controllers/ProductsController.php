@@ -37,6 +37,7 @@ class ProductsController extends Controller
 
 	public function update(Request $request, Product $product)
 	{
+
 	    $product->update($request->all());
 
 	    return response()->json($product, 200);
