@@ -26,14 +26,12 @@ export const catalogsAPI = {
         return async dispatch => {
             try {
                 let res = await instance.post("catalogs", catalog);
-                debugger
                 if (res.data) {
                     dispatch(this.getCatalogs());
                     document.getElementById("requestSuccessInfo").innerText =
                         "Каталог успешно создан!";
                 }
             } catch (e) {
-                debugger
                 let errorText;
                 if (e.response !== undefined && e.response.status === 422) {
                     errorText = "все поля обязательны для заполнения";

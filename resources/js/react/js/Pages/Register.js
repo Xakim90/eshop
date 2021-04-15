@@ -8,7 +8,12 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const validate = values => {
     const errors = {};
-    const requiredFields = ["name", "email", "password"];
+    const requiredFields = [
+        "name",
+        "email",
+        "password",
+        "password_confirmation"
+    ];
     requiredFields.forEach(field => {
         if (!values[field]) {
             errors[field] = "Ushbu maydon to'ldirilishi shart";
@@ -46,7 +51,8 @@ const MaterialUiForm = props => {
     const [user, setUser] = useState({
         name: "",
         email: "",
-        password: ""
+        password: "",
+        password_confirmation: ""
     });
     const change = (e) => {
         setUser( {
@@ -54,10 +60,16 @@ const MaterialUiForm = props => {
             [e.target.name]: e.target.value
         });
     }
+    let url = "";
+    if (process.env.MIX_API_URL === "local") {
+        url = "http://localhost:8000";
+    } else {
+        url = "https://laravel-react-eshop.herokuapp.com";
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-                let res = await Axios.post("api/register", user);
+                let res = await Axios.post(`${url}/api/users`, user);
                     if (res.data) {
                         console.log(res.data)
                     }
@@ -97,7 +109,27 @@ const MaterialUiForm = props => {
                     />
                 </div>
 
-                {console.log("PRISTINE: " + pristine)}
+                <div className="mt-3">
+                    <Field
+                        name="password_confirmation"
+                        component={renderTextField}
+                        label="Parolni tasdiqlash"
+                        fullWidth={true}
+                        onChange={change}
+                    />
+                </div>
+
+                {/* 
+                     <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+                */}
+
+                {/* {console.log("PRISTINE: " + pristine)} */}
 
                 <div className="mt-3 flex">
                     <div>
