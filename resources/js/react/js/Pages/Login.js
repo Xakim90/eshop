@@ -3,17 +3,13 @@ import { Field, reduxForm } from "redux-form";
 import TextField from "@material-ui/core/TextField";
 import asyncValidate from "../Helpers/asyncValidate";
 import Button from "@material-ui/core/Button";
-import Axios from 'axios';
+import Axios from "axios";
+import Checkbox from "@material-ui/core/Checkbox";
 import { makeStyles } from "@material-ui/core/styles";
 
 const validate = values => {
     const errors = {};
-    const requiredFields = [
-        "name",
-        "email",
-        "password",
-        "password_confirmation"
-    ];
+    const requiredFields = ["email", "password"];
     requiredFields.forEach(field => {
         if (!values[field]) {
             errors[field] = "Ushbu maydon to'ldirilishi shart";
@@ -46,50 +42,49 @@ const renderTextField = ({
     />
 );
 
-const MaterialUiForm = props => {
+const Login = props => {
     const { pristine, reset, submitting, classes } = props;
     const [user, setUser] = useState({
-        name: "",
         email: "",
         password: "",
-        // password_confirmation: ""
+        // remember: false
     });
-    const change = (e) => {
-        setUser( {
-            ...user,
-            [e.target.name]: e.target.value
-        });
-    }
+    const change = e => {
+        console.log(e);
+        if (e.target.type === "checkbox") {
+            setUser({
+                ...user,
+                [e.target.name]: e.target.checked
+            });
+        } else {
+            setUser({
+                ...user,
+                [e.target.name]: e.target.value
+            });
+        }
+    };
     let url = "";
     if (process.env.MIX_API_URL === "local") {
         url = "http://localhost:8000";
     } else {
         url = "https://laravel-react-eshop.herokuapp.com";
     }
-    const handleSubmit = async (e) => {
+
+    const handleSubmit = async e => {
         e.preventDefault();
         try {
-                let res = await Axios.post(`${url}/api/register`, user);
-                    if (res.data) {
-                        console.log(res.data)
-                    }
-                } catch (e) {
-                    console.log(e)
-                }
-    }
+            let res = await Axios.post(`${url}/api/login`, user);
+            if (res.data) {
+                console.log(res.data);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
     return (
         <div className="flex justify-center mt-3">
-            <form className="w-1/2" onSubmit={handleSubmit}>
-                <div>
-                    <Field
-                        name="name"
-                        component={renderTextField}
-                        label="Ism"
-                        fullWidth={true}
-                        onChange={change}
-                    />
-                </div>
+            <form className="w-1/2" onSubmit={e => handleSubmit(e)}>
                 <div className="mt-3">
                     <Field
                         name="email"
@@ -108,26 +103,16 @@ const MaterialUiForm = props => {
                         onChange={change}
                     />
                 </div>
-
                 {/* <div className="mt-3">
-                    <Field
-                        name="password_confirmation"
-                        component={renderTextField}
-                        label="Parolni tasdiqlash"
-                        fullWidth={true}
+                    <Checkbox
+                        name="remember"
+                        checked={user.remember}
                         onChange={change}
+                        inputProps={{
+                            "aria-label": "primary checkbox"
+                        }}
                     />
                 </div> */}
-
-                {/* 
-                     <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-                */}
 
                 {/* {console.log("PRISTINE: " + pristine)} */}
 
@@ -161,4 +146,4 @@ export default reduxForm({
     form: "MaterialUiForm", // a unique identifier for this form
     validate,
     asyncValidate
-})(MaterialUiForm);
+})(Login);

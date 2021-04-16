@@ -14,6 +14,7 @@ import AddCatalog from "../../Pages/AddCatalog";
 import AddBrand from "../../Pages/AddBrand";
 import Test from "../../Pages/Test/Test";
 import Add from '../../Pages/Add';
+import Login from '../../Pages/Login';
 
 const ContentMain = (props) => {
     return (
@@ -60,6 +61,9 @@ const ContentMain = (props) => {
                 </Route>
                 <Route exact path="/register">
                     <Register />
+                </Route>
+                <Route exact path="/login">
+                    <Login />
                 </Route>
                 <Route path="/addproduct">
                     <AddProduct

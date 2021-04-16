@@ -5,6 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Routes\Api\getApi;
+use App\Http\Controllers\PassportAuthController;
+use App\Http\Controllers\PostController;
+
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -72,55 +75,55 @@ class RouteServiceProvider extends ServiceProvider
         'prefix' => 'api',
     ], function ($router) {
         
+        /* products */
         Route::get('products', 'ProductsController@index');
-
         Route::get('product/{product}', 'ProductsController@show');
-
         Route::post('products','ProductsController@store');
-
         Route::put('product/{product}','ProductsController@update');
-
         Route::delete('product/{product}', 'ProductsController@delete');
 
-
+        /* catalogs */
         Route::get('catalogs', 'CatalogsController@index');
-
         Route::get('catalog/{catalog}', 'CatalogsController@show');
-
         Route::post('catalogs','CatalogsController@store');
-
         Route::put('catalog/{catalog}','CatalogsController@update');
-
         Route::delete('catalog/{catalog}', 'CatalogsController@delete');
 
-
+        /* categories */
         Route::get('categories', 'CategoriesController@index');
-
         Route::get('category/{category}', 'CategoriesController@show');
-
         Route::post('categories','CategoriesController@store');
-
         Route::put('category/{category}','CategoriesController@update');
-
         Route::delete('category/{category}', 'CategoriesController@delete');
 
-
+        /* brands */
         Route::get('brands', 'BrandsController@index');
-
         Route::get('brand/{brand}', 'BrandsController@show');
-
         Route::post('brands','BrandsController@store');
-
         Route::put('brand/{brand}','BrandsController@update');
-
         Route::delete('brand/{brand}', 'BrandsController@delete');
 
+        /* Auth */
+        Route::post('register', [PassportAuthController::class, 'register']);
+        Route::post('login', [PassportAuthController::class, 'login']);
 
-        Route::post('register','RegisterController@create');
+        Route::middleware('auth:api')->group(function () {
+            Route::resource('posts', PostController::class);
+        });
+
+        /* users */
+        // Route::get('users', 'UsersController@index');
+        // Route::get('user/{user}', 'UsersController@show');
+        // Route::post('users','UsersController@create');
+        // Route::put('user/{user}','UsersController@update');
+        // Route::delete('user/{user}', 'UsersController@delete');
+
+        // Route::get('/register', 'UsersController@register')->name('register');
+        // Route::post('/register', 'Auth\RegisterController@create');
+        // Route::get('/login', 'UsersController@login')->name('login');
+        // Route::post('/login', 'Auth\AuthControllerr@authenticate');
+        // Route::get('logout', 'Auth\AuthController@logout')->name('logout'); 
+        // Route::get('/home', 'Auth\AuthController@home')->name('home');
     });
-        // Route::prefix('api')
-        //      ->middleware('api')
-        //      ->namespace($this->namespace)
-        //      ->group(base_path('routes/api.php'));
-    }
+}
 }

@@ -46,4 +46,4 @@ Route::put('brand/{brand}','BrandsController@update');
 
 Route::delete('brand/{brand}', 'BrandsController@delete');
 
-Route::post('register','RegisterController@create');
+// Route::post('register','RegisterController@create');
