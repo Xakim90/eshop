@@ -69,8 +69,6 @@ const Login = props => {
     } else {
         url = "https://laravel-react-eshop.herokuapp.com";
     }
-    let authorizedUser;
-
     const handleSubmit = async e => {
         e.preventDefault();
         try {
@@ -120,19 +118,6 @@ const Login = props => {
                         onChange={change}
                     />
                 </div>
-                {/* <div className="mt-3">
-                    <Checkbox
-                        name="remember"
-                        checked={user.remember}
-                        onChange={change}
-                        inputProps={{
-                            "aria-label": "primary checkbox"
-                        }}
-                    />
-                </div> */}
-
-                {/* {console.log("PRISTINE: " + pristine)} */}
-
                 <div className="mt-3 flex">
                     <div>
                         <Button

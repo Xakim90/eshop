@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom';
 import HiddenPanel from "../Menu/HiddenPanel";
 import SearchPanel from "./SearchPanel/SearchPanel";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
@@ -22,8 +23,16 @@ const Header = props => {
             </div>
             <div className="text-white flex justify-around md:mt-2">
                 <span className="mr-2">
-                    <AccountCircleIcon className="mr-2 cursor-pointer" />
-                    Account
+                    {!props.authorized ? (
+                        <Link className="text-white" to="login">
+                            Login
+                        </Link>
+                    ) : (
+                        <>
+                            <AccountCircleIcon className="mr-2 cursor-pointer" />
+                            <p>Account</p>
+                        </>
+                    )}
                 </span>
                 <span className="mr-2">
                     <FavoriteBorderIcon className="mr-2 cursor-pointer" />

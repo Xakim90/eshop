@@ -11,8 +11,7 @@ const validate = values => {
     const requiredFields = [
         "name",
         "email",
-        "password",
-        "password_confirmation"
+        "password"
     ];
     requiredFields.forEach(field => {
         if (!values[field]) {
@@ -46,7 +45,7 @@ const renderTextField = ({
     />
 );
 
-const MaterialUiForm = props => {
+const Register = props => {
     const { pristine, reset, submitting, classes } = props;
     const [user, setUser] = useState({
         name: "",
@@ -69,6 +68,7 @@ const MaterialUiForm = props => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            debugger
                 let res = await Axios.post(`${url}/api/register`, user);
                     if (res.data) {
                         console.log(res.data)
@@ -108,29 +108,6 @@ const MaterialUiForm = props => {
                         onChange={change}
                     />
                 </div>
-
-                {/* <div className="mt-3">
-                    <Field
-                        name="password_confirmation"
-                        component={renderTextField}
-                        label="Parolni tasdiqlash"
-                        fullWidth={true}
-                        onChange={change}
-                    />
-                </div> */}
-
-                {/* 
-                     <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-                */}
-
-                {/* {console.log("PRISTINE: " + pristine)} */}
-
                 <div className="mt-3 flex">
                     <div>
                         <Button
@@ -161,4 +138,4 @@ export default reduxForm({
     form: "MaterialUiForm", // a unique identifier for this form
     validate,
     asyncValidate
-})(MaterialUiForm);
+})(Register);
