@@ -24,16 +24,24 @@ const setCatalogs = catalog => ({
 export const catalogsAPI = {
     createCatalog(catalog) {
         return async dispatch => {
+            const token = localStorage.token;
             try {
-                let res = await instance.post("catalogs", catalog);
-                debugger
-                if (res.data) {
-                    dispatch(this.getCatalogs());
-                    document.getElementById("requestSuccessInfo").innerText =
-                        "Каталог успешно создан!";
+                if(token) {
+                    let res = await instance.post("catalogs", catalog, {
+                        headers: {
+                            Accept: "application/json",
+                            Authorization: `Bearer ${token}`
+                        }
+                    });
+                    if (res.data) {
+                        dispatch(this.getCatalogs());
+                        document.getElementById(
+                            "requestSuccessInfo"
+                        ).innerText = "Каталог успешно создан!";
+                    }
                 }
+                
             } catch (e) {
-                debugger
                 let errorText;
                 if (e.response !== undefined && e.response.status === 422) {
                     errorText = "все поля обязательны для заполнения";

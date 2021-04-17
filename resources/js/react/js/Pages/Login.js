@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import Axios from "axios";
 import Checkbox from "@material-ui/core/Checkbox";
 import { makeStyles } from "@material-ui/core/styles";
+import { ErrorOutlined } from '@material-ui/icons';
 
 const validate = values => {
     const errors = {};
@@ -50,7 +51,6 @@ const Login = props => {
         // remember: false
     });
     const change = e => {
-        console.log(e);
         if (e.target.type === "checkbox") {
             setUser({
                 ...user,
@@ -69,18 +69,35 @@ const Login = props => {
     } else {
         url = "https://laravel-react-eshop.herokuapp.com";
     }
+    let authorizedUser;
 
     const handleSubmit = async e => {
         e.preventDefault();
         try {
             let res = await Axios.post(`${url}/api/login`, user);
             if (res.data) {
-                console.log(res.data);
+                localStorage.setItem("token", res.data.token);
             }
         } catch (e) {
             console.log(e);
         }
     };
+
+    const getProfile = async () => {
+        try {
+            const data = {
+                name: "Client Name",
+                redirect: "http://example.com/callback"
+            };
+            const token = localStorage.token;
+            if (token) {
+                let resp = await Axios.post(`${url}/oauth/clients`, data);
+                console.log(resp);
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className="flex justify-center mt-3">
@@ -134,6 +151,15 @@ const Login = props => {
                             color="secondary"
                         >
                             Tozalash
+                        </Button>
+                    </div>
+                    <div className="ml-2">
+                        <Button
+                            variant="contained"
+                            onClick={getProfile}
+                            color="primary"
+                        >
+                            GETPROFILE
                         </Button>
                     </div>
                 </div>
