@@ -17,6 +17,7 @@ import Add from '../../Pages/Add';
 import Login from '../../Pages/Login';
 
 const ContentMain = (props) => {
+    console.log(props)
     return (
         <div className="mt-1 md:mt-5">
             <Switch>
@@ -63,7 +64,7 @@ const ContentMain = (props) => {
                     <Register />
                 </Route>
                 <Route exact path="/login">
-                    <Login />
+                    <Login login={props.data.login}/>
                 </Route>
                 <Route path="/addproduct">
                     <AddProduct

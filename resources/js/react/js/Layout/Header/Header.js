@@ -23,14 +23,13 @@ const Header = props => {
             </div>
             <div className="text-white flex justify-around md:mt-2">
                 <span className="mr-2">
-                    {!props.authorized ? (
+                    {!props.isAuthorized ? (
                         <Link className="text-white" to="login">
                             Login
                         </Link>
                     ) : (
                         <>
-                            <AccountCircleIcon className="mr-2 cursor-pointer" />
-                            <p>Account</p>
+                            <AccountCircleIcon className="mr-2 cursor-pointer" />{props.user.email}
                         </>
                     )}
                 </span>

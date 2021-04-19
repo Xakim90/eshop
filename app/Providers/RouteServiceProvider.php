@@ -85,7 +85,7 @@ class RouteServiceProvider extends ServiceProvider
         /* catalogs */
         Route::get('catalogs', 'CatalogsController@index');
         Route::get('catalog/{catalog}', 'CatalogsController@show');
-        
+        Route::post('catalogs','CatalogsController@store');
         Route::put('catalog/{catalog}','CatalogsController@update');
         Route::delete('catalog/{catalog}', 'CatalogsController@delete');
 
@@ -106,10 +106,11 @@ class RouteServiceProvider extends ServiceProvider
         /* Auth */
         Route::post('register', [PassportAuthController::class, 'register']);
         Route::post('login', [PassportAuthController::class, 'login']);
+        Route::get('auth', 'MeController@me');
 
         Route::middleware('auth:api')->group(function () {
             Route::resource('posts', PostController::class);
-            Route::post('catalogs','CatalogsController@store');
+            
         });
 
         /* users */

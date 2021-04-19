@@ -10,6 +10,7 @@ import { productsAPI } from "./routes/api/productsAPI";
 import { catalogsAPI } from "./routes/api/catalogsAPI";
 import { categoriesAPI } from "./routes/api/categoriesAPI";
 import { brandsAPI } from "./routes/api/brandsAPI";
+import { authAPI } from "./routes/api/usersAPI";
 
 class Main extends Component {
     componentDidMount() {
@@ -17,23 +18,21 @@ class Main extends Component {
         this.props.getCatalogs();
         this.props.getCategories();
         this.props.getBrands();
+        // this.props.getProfile();
     }
-    setAuthorized = () => {
-        setisAuthorized(true);
-    };
-
+    
     render() {
         return (
             <div className="container mx-auto">
                 <div className="sticky top-0 z-50">
                     <Header
-                        setAuthorized={this.setAuthorized}
+                        isAuthorized={this.props.isAuthorized}
                         catalogs={this.props.catalogs}
+                        login={this.props.login}
+                        user={this.props.user}
                     />
                 </div>
-                <ContentMain
-                    data={this.props}
-                />
+                <ContentMain data={this.props} login={this.props.login} />
                 <Footer />
             </div>
         );
@@ -48,7 +47,9 @@ const mapStateToProps = state => ({
     categories: state.categoriesReducer.categories,
     categoriesIsLoaded: state.categoriesReducer.loaded,
     brands: state.brandsReducer.brands,
-    brandsIsLoaded: state.brandsReducer.loaded
+    brandsIsLoaded: state.brandsReducer.loaded,
+    isAuthorized: state.authReducer.isAuthorized,
+    user: state.authReducer.user
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -60,7 +61,9 @@ const mapDispatchToProps = dispatch => ({
     createCategory: category =>
     dispatch(categoriesAPI.createCategory(category)),
     getBrands: () => dispatch(brandsAPI.getBrands()),
-    createBrand: brand => dispatch(brandsAPI.createBrand(brand))
+    createBrand: brand => dispatch(brandsAPI.createBrand(brand)),
+    login: user => dispatch(authAPI.login(user)),
+    getProfile: () => dispatch(authAPI.getProfile())
 });
 
 const MainContainer = compose(
