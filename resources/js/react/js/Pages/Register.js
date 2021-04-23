@@ -67,15 +67,7 @@ const Register = props => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            debugger
-                let res = await Axios.post(`${url}/api/register`, user);
-                    if (res.data) {
-                        console.log(res.data)
-                    }
-                } catch (e) {
-                    console.log(e)
-                }
+        await props.createUser(user);
     }
 
     return (

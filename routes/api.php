@@ -46,4 +46,12 @@ Route::put('brand/{brand}','BrandsController@update');
 
 Route::delete('brand/{brand}', 'BrandsController@delete');
 
-// Route::post('register','RegisterController@create');
+
+            /* Auth */
+ Route::post('register', [PassportAuthController::class, 'register']);
+ Route::post('login', [PassportAuthController::class, 'login']);
+ Route::get('auth', 'MeController@me');
+ Route::middleware('auth:api')->group(function () {
+     Route::resource('posts', PostController::class);
+     
+ });

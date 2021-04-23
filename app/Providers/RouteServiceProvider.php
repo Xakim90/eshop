@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Routes\Api\getApi;
 use App\Http\Controllers\PassportAuthController;
 use App\Http\Controllers\PostController;
+use Illuminate\Http\Request;
 
 
 class RouteServiceProvider extends ServiceProvider
@@ -106,11 +107,11 @@ class RouteServiceProvider extends ServiceProvider
         /* Auth */
         Route::post('register', [PassportAuthController::class, 'register']);
         Route::post('login', [PassportAuthController::class, 'login']);
-        Route::get('auth', 'MeController@me');
+        Route::post('me', [PassportAuthController::class, 'me']);
+        
 
-        Route::middleware('auth:api')->group(function () {
-            Route::resource('posts', PostController::class);
-            
+        Route::middleware('auth:api')->get('/user',function (Request $request) {
+            return $request->user();
         });
 
         /* users */

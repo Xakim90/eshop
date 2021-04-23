@@ -112,7 +112,7 @@ export const usersAPI = {
         if (response.message) {
           localStorage.removeItem('token');
         } else {
-          myData.clientError(response.data);
+          console.log(response.data)
         }
       }
     };

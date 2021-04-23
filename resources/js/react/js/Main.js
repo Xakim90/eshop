@@ -1,43 +1,47 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { BrowserRouter, withRouter } from "react-router-dom";
 import { connect, Provider } from "react-redux";
 import { compose } from "redux";
 import store from "./redux/redux-store";
 import Header from "./Layout/Header/Header";
 import Footer from "./Layout/Footer/Footer";
-import ContentMain from './Layout/Content/ContentMain';
+import ContentMain from "./Layout/Content/ContentMain";
 import { productsAPI } from "./routes/api/productsAPI";
 import { catalogsAPI } from "./routes/api/catalogsAPI";
 import { categoriesAPI } from "./routes/api/categoriesAPI";
 import { brandsAPI } from "./routes/api/brandsAPI";
 import { authAPI } from "./routes/api/usersAPI";
 
-class Main extends Component {
-    componentDidMount() {
-        this.props.getProducts();
-        this.props.getCatalogs();
-        this.props.getCategories();
-        this.props.getBrands();
-        // this.props.getProfile();
-    }
-    
-    render() {
-        return (
-            <div className="container mx-auto">
-                <div className="sticky top-0 z-50">
-                    <Header
-                        isAuthorized={this.props.isAuthorized}
-                        catalogs={this.props.catalogs}
-                        login={this.props.login}
-                        user={this.props.user}
-                    />
-                </div>
-                <ContentMain data={this.props} login={this.props.login} />
-                <Footer />
+const Main = props => {
+    const me = async () => {
+        const token = localStorage.getItem("token");
+        token ? await props.getProfile() : null;
+    };
+
+    useEffect(() => {
+        props.getProducts();
+        props.getCatalogs();
+        props.getCategories();
+        props.getBrands();
+        me();
+    }, []);
+
+    return (
+        <div className="container mx-auto">
+            <div className="sticky top-0 z-50">
+                <Header
+                    isAuthorized={props.isAuthorized}
+                    catalogs={props.catalogs}
+                    login={props.login}
+                    logout={props.logout}
+                    user={props.user}
+                />
             </div>
-        );
-    }
-}
+            <ContentMain data={props} login={props.login} />
+            <Footer />
+        </div>
+    );
+};
 
 const mapStateToProps = state => ({
     products: state.productsReducer.products,
@@ -49,7 +53,8 @@ const mapStateToProps = state => ({
     brands: state.brandsReducer.brands,
     brandsIsLoaded: state.brandsReducer.loaded,
     isAuthorized: state.authReducer.isAuthorized,
-    user: state.authReducer.user
+    user: state.authReducer.user,
+    loading: state.loaderReducer.loading
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -59,10 +64,12 @@ const mapDispatchToProps = dispatch => ({
     createCatalog: catalog => dispatch(catalogsAPI.createCatalog(catalog)),
     getCategories: () => dispatch(categoriesAPI.getCategories()),
     createCategory: category =>
-    dispatch(categoriesAPI.createCategory(category)),
+        dispatch(categoriesAPI.createCategory(category)),
     getBrands: () => dispatch(brandsAPI.getBrands()),
     createBrand: brand => dispatch(brandsAPI.createBrand(brand)),
     login: user => dispatch(authAPI.login(user)),
+    logout: () => dispatch(authAPI.logout()),
+    createUser: user => dispatch(authAPI.createUser(user)),
     getProfile: () => dispatch(authAPI.getProfile())
 });
 

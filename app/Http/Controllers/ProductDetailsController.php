@@ -1,0 +1,70 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\ProducDetails;
+
+class ProductDetailsController extends Controller
+{
+     public function index()
+	{
+	    return ProducDetails::all();
+	}
+
+	public function show(ProducDetails $product_detail)
+	{
+	    return $product_detail;
+	}
+
+	public function store(Request $request)
+	{
+	   $this->validate($request, [
+        'productId' => 'required|unique:product_details|integer',
+        'version' => 'string',
+        'warranty' => 'integer',
+        'weight' => 'string',
+        'country' => 'string',
+        'delivery' => 'boolean',
+        'fingerprint' => 'boolean',
+        'faceId' => 'boolean',
+        'nfc' => 'boolean',
+        'usbType' => 'string',
+        'bluetoothVersion' => 'string',
+        'gsmStandart' => 'string',
+        'navigation' => 'string',
+        'wiFiVersion' => 'string',
+        'ram' => 'integer',
+        'memoryPhone' => 'integer',
+        'slotMemoryCard' => 'integer',
+        'numberOfProcessorCores' => 'integer',
+        'batteryCapacity' => 'integer',
+        'batteryType' => 'string',
+        'fastCharging' => 'boolean',
+        'frontalCamera' => 'integer',
+        'mainCamera' => 'integer',
+        'diagonal' => 'float',
+        'screenResolution' => 'string',
+        'webcamera' => 'boolean',
+        'cashMemory' => 'integer',
+    ]);
+	    $product_detail = ProducDetails::create($request->all());
+
+	    return response()->json($product_detail, 201);
+	}
+
+	public function update(Request $request, ProducDetails $product_detail)
+	{
+
+	    $product_detail->update($request->all());
+
+	    return response()->json($product_detail, 200);
+	}
+
+	public function delete(ProducDetails $product_detail)
+	{
+	    $product_detail->delete();
+
+	    return response()->json(null, 204);
+	}
+}
