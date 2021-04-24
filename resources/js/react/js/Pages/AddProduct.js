@@ -14,36 +14,6 @@ class AddProduct extends Component {
             availability: "",
             brandName: "",
             photo: "",
-            details: {
-                version: "",
-                warranty: "",
-                weight: "",
-                country: "",
-                delivery: null,
-                phoneFeatures: {
-                    simSlotAndType: "",
-                    fingerprint: null,
-                    faceId: null,
-                    nfc: null,
-                    usbType: "",
-                    bluetoothVersion: "",
-                    gsmStandart: "",
-                    navigation: "",
-                    wiFiVersion: "",
-                    ram: "",
-                    memoryPhone: "",
-                    slotMemoryCard: "",
-                    numberOfProcessorCores: "",
-                    batteryCapacity: "",
-                    batteryType: "",
-                    fastCharging: null,
-                    frontalCamera: "",
-                    mainCamera: "",
-                    diagonal: "",
-                    screenResolution,
-                },
-                feature2: ""
-            }
         };
         this.btnIsDisabled = true;
     }
