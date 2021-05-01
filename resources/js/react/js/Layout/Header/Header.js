@@ -12,6 +12,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import SettingsIcon from "@material-ui/icons/Settings";
+import Badge from "@material-ui/core/Badge";
 
 const StyledMenu = withStyles({
     paper: {
@@ -69,55 +70,55 @@ const Header = props => {
             >
                 <SearchPanel />
             </div>
-            <div className="text-white flex justify-around md:mt-2">
-                <span className="mr-1">
-                    {props.isAuthorized && props.user ? (
-                        <>
-                            <button
-                                aria-controls="customized-menu"
-                                aria-haspopup="true"
-                                className="bg-transparent hover:bg-white-200 text-white font-semibold py-1 px-2 rounded shadow"
-                                onClick={handleClick}
-                            >
-                                <AccountCircleIcon className="cursor-pointer mr-1" />
-                                {props.user.name}
-                            </button>
+            <div className="text-white flex justify-around content-center">
+                {props.isAuthorized && props.user ? (
+                    <>
+                        <button
+                            aria-controls="customized-menu"
+                            aria-haspopup="true"
+                            className="bg-transparent hover:bg-white-200 text-white font-semibold py-1 px-2 rounded shadow"
+                            onClick={handleClick}
+                        >
+                            <AccountCircleIcon className="cursor-pointer mr-1" />
+                            {props.user.name}
+                        </button>
 
-                            <StyledMenu
-                                id="customized-menu"
-                                anchorEl={anchorEl}
-                                keepMounted
-                                open={Boolean(anchorEl)}
-                                onClose={handleClose}
-                            >
-                                <StyledMenuItem>
-                                    <ListItemIcon>
-                                        <SettingsIcon fontSize="small" />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Настройки" />
-                                </StyledMenuItem>
-                                <StyledMenuItem onClick={props.logout}>
-                                    <ListItemIcon>
-                                        <ExitToAppIcon fontSize="small" />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Выход" />
-                                </StyledMenuItem>
-                            </StyledMenu>
-                        </>
-                    ) : (
-                        <Link className="text-white" to="login">
-                            Login
-                        </Link>
-                    )}
-                </span>
-                <span className="mr-2">
-                    <FavoriteBorderIcon className="mr-2 cursor-pointer" />
-                    My Items
-                </span>
-                <span className="mr-2">
+                        <StyledMenu
+                            id="customized-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}
+                        >
+                            <StyledMenuItem>
+                                <ListItemIcon>
+                                    <SettingsIcon fontSize="small" />
+                                </ListItemIcon>
+                                <ListItemText primary="Настройки" />
+                            </StyledMenuItem>
+                            <StyledMenuItem onClick={props.logout}>
+                                <ListItemIcon>
+                                    <ExitToAppIcon fontSize="small" />
+                                </ListItemIcon>
+                                <ListItemText primary="Выход" />
+                            </StyledMenuItem>
+                        </StyledMenu>
+                    </>
+                ) : (
+                    <Link className="text-white" to="login">
+                        Login
+                    </Link>
+                )}
+                <div className="h-full flex content-center">
+                <Badge badgeContent={4} color="primary">
+                    <FavoriteBorderIcon className="cursor-pointer" />
+                </Badge>
+                <span>Избранные</span>
+                <Badge badgeContent={1} color="secondary">
                     <ShoppingCartIcon className="cursor-pointer" />
-                    Корзина
-                </span>
+                </Badge>
+                <span>Корзина</span>
+                </div>
             </div>
         </div>
     );

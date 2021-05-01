@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from "../components/Modal";
 import AddBrand from './AddBrand';
+import AddCharacteristics from './AddCharacteristics';
 import AddProduct from "./AddProduct";
 
 const Add = props => {
@@ -28,6 +29,21 @@ const Add = props => {
                             <AddBrand
                                 createBrand={props.createBrand}
                                 categories={props.categories}
+                            />
+                        }
+                    />
+                </div>
+                <div>
+                    <Modal
+                        openBtn="Добавить детали для продуктов"
+                        modalHeaderTitle="Добавить детали"
+                        component={
+                            <AddCharacteristics
+                                createProductDetails={
+                                    props.createProductDetails
+                                }
+                                productsIsLoaded={props.productsIsLoaded}
+                                products={props.products}
                             />
                         }
                     />

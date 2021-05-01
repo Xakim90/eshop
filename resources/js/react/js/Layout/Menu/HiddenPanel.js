@@ -45,7 +45,7 @@ export default function HiddenPanel(props) {
         >
             <List>
                 {routes.map((item, index) => (
-                    <Link key={index} to={item.url}>
+                    <Link key={index} to={"/" + item.url}>
                         <ListItem button key={index}>
                             {item.title}
                         </ListItem>
@@ -54,7 +54,7 @@ export default function HiddenPanel(props) {
             </List>
             <List disablePadding={true}>
                 {props.catalogs.map((item, index) => (
-                    <Link key={index} to={item.url}>
+                    <Link key={index} to={"/" + item.url}>
                         <ListItem button key={index}>
                             {item.title}
                         </ListItem>

@@ -84,11 +84,11 @@ class RouteServiceProvider extends ServiceProvider
         Route::delete('product/{product}', 'ProductsController@delete');
 
         /* products */
-        Route::get('products_details', 'ProductsController@index');
-        Route::get('product_detail/{product_detail}', 'ProductsController@show');
-        Route::post('products_details','ProductsController@store');
-        Route::put('product_detail/{product_detail}','ProductsController@update');
-        Route::delete('product_detail/{product_detail}', 'ProductsController@delete');
+        Route::get('products_details', 'ProductDetailsController@index');
+        Route::get('product_detail/{product_detail}', 'ProductDetailsController@show');
+        Route::post('products_details','ProductDetailsController@store');
+        Route::put('product_detail/{product_detail}','ProductDetailsController@update');
+        Route::delete('product_detail/{product_detail}', 'ProductDetailsController@delete');
 
         /* catalogs */
         Route::get('catalogs', 'CatalogsController@index');

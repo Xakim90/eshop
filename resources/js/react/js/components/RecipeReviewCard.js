@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Axios from "axios";
+import { Link } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -43,7 +44,7 @@ const style = {
 };
 const size = {
     backgroundSize: "contain"
-}
+};
 
 export default function RecipeReviewCard(props) {
     const classes = useStyles();
@@ -90,20 +91,22 @@ export default function RecipeReviewCard(props) {
                             " h-full p-2 hover:shadow-3xl cursor-pointer focus:border-yellow-800"
                         }
                     >
-                        <div className="h-3/6 w-full">
-                            <CardMedia
-                                style={size}
-                                className={"h-full w-full"}
-                                image={product.photo}
-                                title={product.title}
-                            />
-                        </div>
-                        <div className="h-1/4">
-                            <CardHeader
-                                className="p-1"
-                                subheader={product.title}
-                            />
-                        </div>
+                        <Link to={"details/" + product.id}>
+                            <div className="h-3/6 w-full">
+                                <CardMedia
+                                    style={size}
+                                    className={"h-full w-full"}
+                                    image={product.photo}
+                                    title={product.title}
+                                />
+                            </div>
+                            <div className="h-1/4 overflow-hidden">
+                                <CardHeader
+                                    className="p-1"
+                                    subheader={product.title}
+                                />
+                            </div>
+                        </Link>
 
                         <div className="h-1/4">
                             <CardActions disableSpacing className="p-2 h-1/2">

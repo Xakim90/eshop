@@ -4,6 +4,7 @@ const loginUser = user => ({
     type: "AUTHORIZED_SUCCESS",
     payload: user
 });
+
 export const logoutUser = () => ({
     type: "LOG_OUT"
 });
@@ -37,15 +38,15 @@ export const authAPI = {
 
     logout() {
         return async dispatch => {
-            localStorage.removeItem("token");
+            localStorage.removeItem("token"); /* local ombordagi tokenni o'chiradi */
             dispatch(logoutUser());
         }
     },
     
     getProfile() {
         return async dispatch => {
-            const token = localStorage.token;
-            if (token) {
+            const token = localStorage.token; /* local ombordagi token */
+            if (token) { /* agar token mavjud bo'lsa */
                 let response = await instance.get("user", {
                     headers: {
                         Authorization: `Bearer ${token}`

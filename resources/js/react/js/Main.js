@@ -7,23 +7,20 @@ import Header from "./Layout/Header/Header";
 import Footer from "./Layout/Footer/Footer";
 import ContentMain from "./Layout/Content/ContentMain";
 import { productsAPI } from "./routes/api/productsAPI";
+import { productsDetailsAPI } from "./routes/api/productsDetailsAPI";
 import { catalogsAPI } from "./routes/api/catalogsAPI";
 import { categoriesAPI } from "./routes/api/categoriesAPI";
 import { brandsAPI } from "./routes/api/brandsAPI";
 import { authAPI } from "./routes/api/usersAPI";
 
 const Main = props => {
-    const me = async () => {
-        const token = localStorage.getItem("token");
-        token ? await props.getProfile() : null;
-    };
 
     useEffect(() => {
         props.getProducts();
         props.getCatalogs();
         props.getCategories();
         props.getBrands();
-        me();
+        props.getProfile();
     }, []);
 
     return (
@@ -70,7 +67,10 @@ const mapDispatchToProps = dispatch => ({
     login: user => dispatch(authAPI.login(user)),
     logout: () => dispatch(authAPI.logout()),
     createUser: user => dispatch(authAPI.createUser(user)),
-    getProfile: () => dispatch(authAPI.getProfile())
+    getProfile: () => dispatch(authAPI.getProfile()),
+    createProductDetails: productDetails =>
+        dispatch(productsDetailsAPI.createProductDetails(productDetails)),
+    getProductDetail: (id) => dispatch(productsDetailsAPI.getProductDetail(id))
 });
 
 const MainContainer = compose(

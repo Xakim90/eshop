@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ProducDetails;
+use App\Models\ProductDetails;
 
 class ProductDetailsController extends Controller
 {
      public function index()
 	{
-	    return ProducDetails::all();
+	    return ProductDetails::all();
 	}
 
-	public function show(ProducDetails $product_detail)
+	public function show(ProductDetails $product_detail)
 	{
 	    return $product_detail;
 	}
@@ -43,17 +43,17 @@ class ProductDetailsController extends Controller
         'fastCharging' => 'boolean',
         'frontalCamera' => 'integer',
         'mainCamera' => 'integer',
-        'diagonal' => 'float',
+        'diagonal' => 'numeric',
         'screenResolution' => 'string',
         'webcamera' => 'boolean',
         'cashMemory' => 'integer',
     ]);
-	    $product_detail = ProducDetails::create($request->all());
+	    $product_detail = ProductDetails::create($request->all());
 
 	    return response()->json($product_detail, 201);
 	}
 
-	public function update(Request $request, ProducDetails $product_detail)
+	public function update(Request $request, ProductDetails $product_detail)
 	{
 
 	    $product_detail->update($request->all());
@@ -61,7 +61,7 @@ class ProductDetailsController extends Controller
 	    return response()->json($product_detail, 200);
 	}
 
-	public function delete(ProducDetails $product_detail)
+	public function delete(ProductDetails $product_detail)
 	{
 	    $product_detail->delete();
 

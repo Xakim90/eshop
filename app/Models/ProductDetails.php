@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductDetails extends Model
 {
-    protected $fillable = 
+    use HasFactory;
+      protected $fillable = 
     [
         'productId',
         'version',
@@ -37,4 +38,4 @@ class ProductDetails extends Model
         'webcamera',
         'cashMemory'
       ];
-    }
+}
